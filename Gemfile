@@ -64,3 +64,5 @@ group :development, :test do
   gem 'fcrepo_wrapper'
   gem 'rspec-rails'
 end
+gem 'webpacker-react', '~> 0.3.2'
+gem 'webpacker', '~> 3.0'
