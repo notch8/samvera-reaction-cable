@@ -51,3 +51,42 @@ $ yarn add babel-preset-react babel-preset-stage-0 webpacker-react react react-d
 
 Restart the server to pick up the new config.
 
+## Copy over layout for head
+```
+$ cp /Users/mclark/.rvm/gems/ruby-2.4.1/gems/hyrax-2.0.0.rc2/app/views/layouts/_head_tag_content.html.erb app/views/layouts
+```
+
+## Create a LiveSearch Component
+```javascript
+import React, { Component } from 'react';
+
+export default class LiveSearch extends Component {
+  render() {
+    return (
+      <h3>Live Search</h3>
+    );
+  }
+}
+```
+
+## Create a LiveSearch Pack
+#### /app/javascript/packs/LiveSearch.js
+```javascript
+import LiveSearch from '../components/LiveSearch'
+import WebpackerReact from 'webpacker-react'
+
+WebpackerReact.setup({LiveSearch})
+```
+
+## add javascript_pack_tag to layout header
+#### /app/views/layouts/_head_tag_content.html.erb
+```html
+<%= javascript_pack_tag 'LiveSearch' %>
+```
+
+## Add _search_sidebar.html.erb partial
+#### /app/views/catalog/_search_sidebar.html.erb
+```html
+<h1>Sidebar</h1>
+<%= react_component('LiveSearch') %>
+```
