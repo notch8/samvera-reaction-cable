@@ -2,6 +2,16 @@ class CatalogController < ApplicationController
   include Hydra::Catalog
   include Hydra::Controller::ControllerBehavior
 
+  before_filter :broadcast_live_search
+
+  def broadcast_live_search
+    if params[:q]
+      ActionCable.server.broadcast "live_search", params[:q]
+      puts "\n\n\nSTREAMED"
+      puts params[:q]
+    end
+  end
+
   # This filter applies the hydra access controls
   before_action :enforce_show_permissions, only: :show
 
